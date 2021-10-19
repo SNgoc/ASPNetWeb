@@ -1,0 +1,8 @@
+Hướng dẫn sửa lỗi EntityFrameworkCore không load relationship.
+1. Vào Manage NuGet Packages..., thêm package: Microsoft.EntityFrameworkCore.Proxies
+2. Vào tập tin Startup.cs, thay đổi code của lệnh nạp kết nối db từ:
+services.AddDbContext<DemoLoginContext>(options => options.UseSqlServer(conStr));
+thành: 
+services.AddDbContext<DemoLoginContext>(options => options.UseLazyLoadingProxies().UseSqlServer(conStr));
+3. Vào tập tin Demo\Index.cshtml, bỏ code phần load role đi, thầy sẽ hướng dẫn phần này sau
+4. Sau khi login, có thể chạy được: http://localhost:5000/Demo/Create

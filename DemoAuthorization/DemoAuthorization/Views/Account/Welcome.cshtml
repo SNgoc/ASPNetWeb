@@ -1,0 +1,22 @@
+﻿@using System.Security.Claims;
+@{
+    //Lấy user name đã login vô tìm
+    var user = User.FindFirst(ClaimTypes.Name);
+}
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Welcome</title>
+</head>
+<body>
+    <h1>Welcome</h1>
+    <h3>Welcome to @user.Value</h3>
+    <h4><a asp-controller="Account" asp-action="SignOut">LogOut</a></h4>
+</body>
+</html>

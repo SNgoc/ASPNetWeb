@@ -1,0 +1,43 @@
+﻿@* khai báo model cho View *@
+@model Customer.Models.Customer
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        <div>
+            @Html.LabelFor(model => model.Id)
+            @Html.EditorFor(model => model.Id)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Name)
+            @Html.EditorFor(model => model.Name)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Gender)
+            @Html.DropDownListFor(model => model.Gender, new SelectList(new List<Object> {
+                    new {value = true , text = "Male"},
+                    new {value = false, text = "Female"}
+                }, "value", "text"), "Choose Gender")
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Birthday)
+            @Html.EditorFor(model => model.Birthday)
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Email)
+            @Html.EditorFor(model => model.Email)
+        </div>
+        <div><input type="submit" name="btnCreate" value="Create" /></div>
+    }
+</body>
+</html>

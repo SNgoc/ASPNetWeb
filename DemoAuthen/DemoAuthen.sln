@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoAuthen", "DemoAuthen\DemoAuthen.csproj", "{DE770EA6-7EFB-4888-B351-7E1081AE08FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DE770EA6-7EFB-4888-B351-7E1081AE08FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE770EA6-7EFB-4888-B351-7E1081AE08FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE770EA6-7EFB-4888-B351-7E1081AE08FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE770EA6-7EFB-4888-B351-7E1081AE08FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9CDF6541-927A-4C43-A857-A18BBE61C745}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,75 @@
+﻿@model HomeWork2_Item.Models.ItemModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ListItem</title>
+</head>
+<body>
+    <h1>List item</h1>
+    <form asp-action="ListItem" enctype="multipart/form-data">
+        @* thông báo lỗi chung *@
+        <h4 asp-validation-summary="ModelOnly" style="color:red;"></h4>
+        @* Hiển thị thông báo lỗi *@
+        @if (ViewBag.error != null)
+        {
+            <div>@ViewBag.error</div>
+        }
+        <div>
+            @*@Html.EditorFor(m => m.Username) giống asp-for, tự sinh ra thẻ input theo kiểu type dựa vào kiểu thuộc tính của property, vd: int sẽ type number*@
+            ItemCode: <input asp-for="ItemCode" />
+            <span asp-validation-for="ItemCode" style="color:red;"></span>
+        </div>
+        <div>
+            ItemName: <input asp-for="ItemName" />
+            <span asp-validation-for="ItemName" style="color:red;"></span>
+        </div>
+        <div>
+            Price: <input asp-for="Price" />
+            <span asp-validation-for="Price" style="color:red;"></span>
+        </div>
+        <div>
+            Image: <input type="file" name="UploadImage" />
+            @* để ko yêu cầu validate image *@
+            @*<span asp-validation-for="UploadImage" style="color:red;"></span>*@
+        </div>
+        <br />
+        <div>
+            <button type="submit" style="margin-left:100px;">Add</button>
+        </div>
+    </form>
+    <br />
+    @* Hiển thị all list items *@
+    <table>
+        <thead>
+            <tr>
+                <th>Item Code</th>
+                <th>Item Name</th>
+                <th>Image</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.items)
+            {
+                <tr>
+                    <td>@item.ItemCode</td>
+                    <td>@item.ItemName</td>
+                    <td>
+                        @if (item.Image != null)
+                        {
+                            <img src="~/images/@item.Image" style="width:150px; height:200px;" />
+                        }
+                </td>
+                <td>@item.Price</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<DemoBank.Models.TbPerson>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Show</title>
+</head>
+<body>
+    <h2>Hello, @ViewBag.username</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Id</th>
+                <th>@Html.DisplayNameFor(m => m.Username)</th>
+                <th>@Html.DisplayNameFor(m => m.Balance) ($)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ int i = 0;}
+            @foreach (var item in Model)
+            {
+                int no = i + 1;
+                int id = i + 1000;
+            <tr>
+                <td>@no</td>
+                <td>@id</td>
+                <td>@Html.DisplayFor(mi => item.Username)</td>
+                <td>@Html.DisplayFor(mi => item.Balance)</td>
+            </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+</body>
+</html>

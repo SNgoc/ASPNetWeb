@@ -1,0 +1,56 @@
+﻿@model HomeWork2_Item.Models.Account
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    @* Style css border table *@
+    <style>
+        form {
+            box-sizing: content-box;
+            width: 350px;
+            height: auto;
+            padding: 30px;
+            border: 1px solid black;
+        }
+    </style>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+    @* asp-controller="News" là tên controller cũng là tên trang truy cập trên thanh address *@
+    @* asp-action="Login" là tên phương thức trong NewsController *@
+    <form asp-controller="Item" asp-action="Login">
+        <h3 style="text-align:center">Login</h3>
+        @* thông báo lỗi chung *@
+        <h4 asp-validation-summary="ModelOnly" class="text-danger"></h4>
+        @* Hiển thị thông báo lỗi *@
+        @if (ViewBag.error != null)
+        {
+            <div style="color:red;">@ViewBag.error</div> <br />
+        }
+        <div>
+            @*@Html.EditorFor(m => m.Username) giống asp-for, tự sinh ra thẻ input*@
+            Username:<input asp-for="Username" name="username" style="margin-left:50px;" />
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+        <br />
+        <div>
+            Password:<input asp-for="Password" type="password" name="password" style="margin-left:53px;" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <br />
+        <div>
+            <button type="submit" style="margin-left:100px;">Login</button>
+            <button type="reset" style="margin-left:20px;">Reset</button>
+        </div>
+    </form>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

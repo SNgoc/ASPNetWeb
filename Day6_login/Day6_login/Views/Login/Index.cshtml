@@ -1,0 +1,40 @@
+﻿@* Viết mã cho login *@
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index Login</title>
+    @* dùng bootstrap *@
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+    @* dùng cách này nếu ko chạy dòng lệnh scaffold và nuget.org *@
+    @using (Html.BeginForm("CheckLogin", "Login")) // Tên phương thức CheckLogin và tên controller chứa phương thức login
+    {
+    <table>
+        <tr>
+            <td>Username: <input type="text" name="username" id="username" placeholder="username" /></td>
+        </tr>
+        <tr>
+            <td>Password: <input type="text" name="password" id="password" placeholder="password" /></td>
+        </tr>
+        <tr>
+            @* dùng phương thức remember để lưu cookie *@
+            <td>@Html.CheckBox("remember") Remember me</td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Login" /></td>
+        </tr>
+    </table>
+    }
+
+    @* Bootstrap *@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

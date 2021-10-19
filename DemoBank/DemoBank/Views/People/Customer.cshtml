@@ -1,0 +1,37 @@
+﻿@model DemoBank.Models.TbPerson;
+@using Microsoft.AspNetCore.Http;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Customer</title>
+</head>
+<body>
+    @* Dùng session thì ko cần *@
+    @*<h2>Hello @Model.Username</h2>*@
+    <h2>Hello @Context.Session.GetString("username")</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Balance ($)</th>
+            </tr>   
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>1000</td>
+                <td>@Model.Username</td>
+                <td>@Model.Balance</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

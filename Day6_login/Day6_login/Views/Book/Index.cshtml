@@ -1,0 +1,43 @@
+﻿@* Khai báo model ienumerable để view*@
+@model IEnumerable<Day6_login.Models.Book>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create new", "Create")
+    </p>
+    @* Log out *@
+    <div>
+        @using (Html.BeginForm("CheckLogout", "Login")) // Tên phương thức CheckLogin và tên controller chứa phương thức login
+        {
+            <input type="submit" value="Log out" />
+        }
+    </div>
+    <table>
+        <tr>
+            @* Hiển thị tên cột trong db*@
+            <th>@Html.DisplayNameFor(model => model.BookId)</th>
+            <th>@Html.DisplayNameFor(model => model.Title)</th>
+            <th>@Html.DisplayNameFor(model => model.Price)</th>
+        </tr>
+        @* Chạy foreach hiển thị data trong db *@
+        <tr>
+            @foreach (var item in Model)
+            {
+                <td>@Html.DisplayFor(modelItem => item.BookId)</td>
+                <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                <td>@Html.DisplayFor(modelItem => item.Price)</td>
+            }
+        </tr>
+    </table>
+</body>
+</html>

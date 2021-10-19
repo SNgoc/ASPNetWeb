@@ -1,0 +1,50 @@
+﻿@* tạo code để truy cập tới data News trong Models *@
+@model IEnumerable<HomeWork1_News.Models.TbNews>
+@* dùng session *@
+@using Microsoft.AspNetCore.Http;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Show</title>
+    @* Style css border table *@
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Show all News</h1>
+    <table style="border:solid;">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>@Html.DisplayNameFor(m => m.NewsId)</th>
+                <th>@Html.DisplayNameFor(m => m.HeadLines)</th>
+                <th>@Html.DisplayNameFor(m => m.ContentOfNews)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ int i = 1;}
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@Html.DisplayFor(mi => item.NewsId)</td>
+                    <td>@Html.DisplayFor(mi => item.HeadLines)</td>
+                    <td>@Html.DisplayFor(mi => item.ContentOfNews)</td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+    @* Quay lại trang Login *@
+    <a href="/News">Back</a>
+</body>
+</html>

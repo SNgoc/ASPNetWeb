@@ -1,0 +1,50 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Demo Html helper Methods</title>
+</head>
+<body>
+    <h1>Form</h1>
+    @* Cách 1 *@
+    @{ Html.BeginForm();}@*Hiện form trong razor**@
+    @Html.Label("Name")
+    @{ Html.EndForm();}@*Đóng form trong razor**@
+
+    @* Cách 2 - ko cần endform NÊN DÙNG *@
+    @using (Html.BeginForm())
+    {
+        <div>
+            @Html.Label("Name")
+            @Html.TextBox("name")
+        </div>
+        <div>
+            @Html.Label("Address")
+            @Html.TextArea("address")
+        </div>
+        <div>
+            @Html.Label("Password")
+            @Html.TextBox("password")
+        </div>
+        <div>
+            @Html.Label("I want to receive news with gmail")@*ko dùng dấu . trong label vì sẽ bị ẩn text label đi*@
+            @Html.TextBox("receive")
+        </div>
+        <div>
+            @Html.Label("City")
+            @Html.DropDownList("city", new SelectList(new[] { "Ha Noi", "HCM", "Can Tho" }), "Choose")
+        </div>
+        <div>
+            @Html.Label("Gender")
+            @Html.RadioButton("gender", "Male", true) Male
+            @Html.RadioButton("gender", "Female", false) Female
+        </div>
+        <div><input type="submit" name="btnOK" value="OK" /></div>
+    }
+</body>
+</html>

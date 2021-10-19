@@ -1,0 +1,50 @@
+﻿@model DemoStock.Models.AccountModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    @* Style css border table *@
+    <style>
+        form {
+            box-sizing: content-box;
+            width: 350px;
+            height: auto;
+            padding: 30px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Login</h1>
+    <form asp-action="Login">
+        @* thông báo lỗi chung *@
+        <h4 asp-validation-summary="ModelOnly" style="color:red;"></h4>
+        @* Hiển thị thông báo lỗi *@
+        @if (ViewBag.error != null)
+        {
+            <div style="color:red;">@ViewBag.error</div>
+        }
+        <div>
+            @*@Html.EditorFor(m => m.Username) giống asp-for, tự sinh ra thẻ input*@
+            Username: <input asp-for="Username" />
+            <span asp-validation-for="Username" style="color:red;"></span>
+        </div>
+        <br />
+        <div>
+            Password: <input asp-for="Password" style="margin-left:5px;"/>
+            <span asp-validation-for="Password" style="color:red;"></span>
+        </div>
+        <br />
+        <div>
+            <button type="submit" style="margin-left:100px;">Login</button>
+            <button type="reset" style="margin-left:20px;">Reset</button>
+        </div>
+    </form>
+</body>
+</html>

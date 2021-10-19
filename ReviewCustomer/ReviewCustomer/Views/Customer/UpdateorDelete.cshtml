@@ -1,0 +1,41 @@
+﻿@model ReviewCustomer.Models.CustomerModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UpdateorDelete</title>
+</head>
+<body>
+    <h1>Update or Delete Customer</h1>
+    <form asp-action="Update">
+        @* validate tự làm *@
+        <input type="hidden" asp-for="Id" />
+        <div>Name: <input asp-for="Name" /></div>
+        <div>Birthday: <input asp-for="Birthday" /></div>
+        <div>
+            Gender: <input type ="radio" id="Male" name="Gender" value="1"
+            @*lệnh if phải xuống hàng, viết tắt sẽ lỗi*@
+            @if (Model.Gender == 1)
+            {
+                @: checked
+            } />
+            <label for="Male">Male</label>
+            <input type="radio" id="Female" name="Gender" value="0" 
+            @if (Model.Gender == 0)
+            {
+                @: checked
+            }/><label for="Female">Female</label>
+        </div>
+        <div>Email: <input asp-for="Email" /></div>
+        <div><input type="submit" value="Update" />
+        @* Phải viết thành link để xóa *@
+        <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+        </div>
+    </form>
+</body>
+</html>

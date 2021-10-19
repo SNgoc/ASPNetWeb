@@ -1,0 +1,53 @@
+﻿@model IEnumerable<HomeWork1_News.Models.TbNews>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Remove</title>
+    @* Style css border table *@
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>@Html.DisplayNameFor(m => m.NewsId)</th>
+                <th>@Html.DisplayNameFor(m => m.HeadLines)</th>
+                <th>@Html.DisplayNameFor(m => m.ContentOfNews)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ int i = 1;}
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@Html.DisplayFor(mi => item.NewsId)</td>
+                    <td>@Html.DisplayFor(mi => item.HeadLines)</td>
+                    <td>@Html.DisplayFor(mi => item.ContentOfNews)</td>
+                    <td>
+                        <form asp-controller="News" asp-action="Delete">
+                            @* xóa theo id *@
+                            <input type="hidden" name="id" asp-for="@item.NewsId" />
+                            <input type="submit" value="Remove" />
+                        </form>
+                    </td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+    @* Quay lại trang Login *@
+    <a href="/News">Back</a>
+</body>
+</html>

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<DemoAuthorization.Models.Account>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>IndexDemo</title>
+</head>
+<body>
+    <h1>Account List</h1>
+
+    <table>
+        <thead>
+            <tr>
+                @* Hiển thị tên cột trong db *@
+                <th>@Html.DisplayNameFor(m => m.Id)</th>
+                <th>@Html.DisplayNameFor(m => m.Username)</th>
+                <th>@Html.DisplayNameFor(m => m.Fullname)</th>
+                <th>Roles</th>
+            </tr>
+        </thead>
+        <tbody>
+            @* hiển thị data của từng cột trong db *@
+            @foreach (var item in @Model)
+            {
+            <tr>
+                <td>@Html.DisplayFor(mi => item.Id)</td>
+                <td>@Html.DisplayFor(mi => item.Username)</td>
+                <td>@Html.DisplayFor(mi => item.Fullname)</td>
+                @* Dùng eager loading để fix lỗi later loading ko hiển thị Roles *@
+                <td>
+                    @foreach (var rr in item.AccountRoles)
+                    {
+                        <span>@Html.DisplayFor(mi => rr.Role.Name)</span> <span>,</span>
+                    }
+                </td>
+            </tr>
+            }
+        </tbody>
+</table>
+</body>
+</html>

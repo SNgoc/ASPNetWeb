@@ -1,0 +1,20 @@
+﻿@using Microsoft.AspNetCore.Http;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Employee</title>
+</head>
+<body>
+    @* Dùng session thì ko cần *@
+    @*<h2>Hello, @ViewBag.username</h2>*@
+    <h2>Hello @Context.Session.GetString("username")</h2>
+    <h3><a href="/People/Show?username=@Context.Session.GetString("username")">Show all customers</a></h3>
+    <h3><a href="/People/Remove?username=@Context.Session.GetString("username")">Remove customer</a></h3>
+</body>
+</html>

@@ -1,0 +1,42 @@
+﻿@model HomeWork4_Customer.Models.CustomerModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+    <h1>Create a new customer</h1>
+    <form asp-action="Create">
+        @* thông báo lỗi chung *@
+        <h4 asp-validation-summary="ModelOnly" style="color:red;"></h4>
+        <div>
+            @*@Html.EditorFor(m => m.Username) giống asp-for, tự sinh ra thẻ input theo kiểu type dựa vào kiểu thuộc tính của property, vd: int sẽ type number*@
+            Name: <input asp-for="Name" />
+            <span asp-validation-for="Name" style="color:red;"></span>
+        </div>
+        <div>
+            Birthday: <input asp-for="Birthday" />
+            <span asp-validation-for="Birthday" style="color:red;"></span>
+        </div>
+        <div>
+            Gender: <input type="radio" asp-for="Gender" value="true" id="Male" /> <label for="Male">Male</label>
+            <input type="radio" asp-for="Gender" value="false" id="Female" /> <label for="Female">Female</label>
+            <span asp-validation-for="Gender" style="color:red;"></span>
+        </div>
+        <div>
+            Email: <input asp-for="Email" />
+            <span asp-validation-for="Email" style="color:red;"></span>
+        </div>
+        <br />
+        <div>
+            <input type="submit" style="margin-left:100px;" value="Create " />
+        </div>
+    </form>
+</body>
+</html>

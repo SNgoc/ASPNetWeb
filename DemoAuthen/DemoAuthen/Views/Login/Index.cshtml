@@ -1,0 +1,26 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    @if (ViewBag.error != null)
+            {
+                <h4>@ViewBag.error</h4>
+            }
+<form asp-controller="login" asp-action="process">
+    <div>Username: <input name="username" /></div>
+    <div>Password: <input type="password" name="password" /></div>
+    <div><input type="submit" value="Login" /></div>
+
+</form>
+</body>
+</html>

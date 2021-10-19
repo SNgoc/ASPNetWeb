@@ -1,0 +1,101 @@
+﻿@model IEnumerable<ProductWeb.Models.DTO.ProductDTO>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Products</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+    <h1>Products</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Products</h1>
+                @* tạo link tới trang create *@
+                <h4><a asp-action="Create">Create new</a></h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            @* Hiển thị tên côt của table trong data dùng displaynamefor *@
+                            <th>@Html.DisplayNameFor(m => m.Id)</th>
+                            <th>@Html.DisplayNameFor(m => m.Name)</th>
+                            <th>@Html.DisplayNameFor(m => m.Price)</th>
+                            <th>@Html.DisplayNameFor(m => m.Image)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (Model != null && Model.Count() > 0)
+                        {
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    @* Hiển thị data của table dùng displayfor *@
+                                    <td>@Html.DisplayFor(im => item.Id)</td>
+                                    <td>@Html.DisplayFor(im => item.Name)</td>
+                                    <td>@Html.DisplayFor(im => item.Price)</td>
+                                    <td>
+                                        @if (item.Image != null)
+                                        {
+                                            <img src="~/images/@item.Image" alt="picture" style="width: 100px; height: auto;" />
+                                        }
+                                        else//xuất mã razor báo chuỗi ko có image
+                                        {
+                                            @: No Image
+                                        }
+                                    </td>
+                                    <td>
+                                        @* phải có data-id ="@item.Id" để xóa hay delete theo id *@
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                                        <a href="#" class="btn btn-danger delete-product" data-id="@item.Id">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td rowspan="4">No Data</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    @* Đoạn script jquery phải để trước thì mới sử dụng đc ajax *@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @* delete by id *@
+    <script>
+        $(document).ready(function () {
+            $('.delete-product').click(function (e) {
+                e.preventDefault(); //ngăn event click link thi hành
+                if (!confirm('Are u sure?')) {
+                    return false;
+                }
+                let selector = $(this);
+                let id = $(this).data('id'); //đọc giá trị của thuộc tính data-id
+
+                $.ajax({
+                    type: "POST",
+                    url: '/product/delete/' + id,
+                    success: function (data) {
+                        if (data == 1) {//ko dùng .success để xóa ko cần load trang bằng ajax
+                            //xóa hàng tương ứng của table
+                            selector.closest('tr').hide('slow');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
