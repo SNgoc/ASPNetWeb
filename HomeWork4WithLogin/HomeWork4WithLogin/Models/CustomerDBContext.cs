@@ -59,6 +59,10 @@ namespace HomeWork4WithLogin.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
+                entity.Property(e => e.Image)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Name).HasMaxLength(100);
             });
 

@@ -12,5 +12,6 @@ namespace HomeWork4WithLogin.Models
         public DateTime? Birthday { get; set; }
         public bool? Gender { get; set; }
         public string Email { get; set; }
+        public string Image { get; set; }
     }
 }

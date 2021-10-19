@@ -1,0 +1,75 @@
+﻿@* dùng IEnumerable để hiển thị nhiều dữ liệu từng customer *@
+@model IEnumerable<HomeWork4WithLogin.Models.CustomerModel>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Show</title>
+</head>
+<body>
+    <h1>Customers</h1>
+    @* Create new page *@
+    <div>
+        <a asp-action="Create">Create new</a>
+    </div>
+    <br />
+    @* Remove page *@
+    <div>
+        <a asp-action="RemoveCus">Remove Page</a>
+    </div>
+    <br />
+    @* Show all page *@
+    <div>
+        <a asp-action="ShowAll">Show all details Page with Image</a>
+    </div>
+    <br />
+    @* Filter *@
+    <form asp-controller="Customer" asp-action="Search">
+        Name: <input name="name" placeholder="Enter a name..." />
+        <input type="submit" value="Search" />
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(m => m.Id)</th>
+                <th>@Html.DisplayNameFor(m => m.Name)</th>
+                <th>@Html.DisplayNameFor(m => m.Birthday)</th>
+                <th>@Html.DisplayNameFor(m => m.Gender)</th>
+                <th>@Html.DisplayNameFor(m => m.Email)</th>
+                <th>@Html.DisplayNameFor(m => m.Image)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@Html.DisplayFor(mi => item.Id)</td>
+                <td>@Html.DisplayFor(mi => item.Name)</td>
+                @* birthday phải parse lại kiểu date, ko xài binding @Html.DisplayFor *@
+                <td>@string.Format("{0:dd/MM/yyyy}", item.Birthday)</td>
+                <td>
+                    @if (item.Gender == true)
+                    {
+                        @:Male
+                    }
+                    else
+                    {
+                        @:Female
+                    }
+                </td>
+                <td>@Html.DisplayFor(mi => item.Email)</td>
+
+                <td><a asp-action="Delete" asp-route-id="@item.Id">Delete</a></td>
+                <td><a asp-action="EditWithImage" asp-route-id="@item.Id">Edit with Image</a></td>
+                <td><a asp-action="UpdateOrDelete" asp-route-id="@item.Id">View Details</a></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

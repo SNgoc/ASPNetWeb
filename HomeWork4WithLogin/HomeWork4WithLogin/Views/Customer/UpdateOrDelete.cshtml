@@ -1,0 +1,42 @@
+﻿@model HomeWork4WithLogin.Models.CustomerModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UpdateOrDelete</title>
+</head>
+<body>
+    <h1>Update or Delete Customer</h1>
+    <form asp-action="Update">
+        @* validate tự làm *@
+        <input type="hidden" asp-for="Id" />
+        <div>Name: <input asp-for="Name" /></div>
+        <div>Birthday: <input asp-for="Birthday" /></div>
+        <div>
+            Gender:
+            @* Male *@
+            <input type="radio" id="Male" name="Gender" value="true"
+                   @*lệnh if phải xuống hàng, viết tắt sẽ lỗi*@
+                   @if (Model.Gender == true) { @: checked
+                   } /> <label for="Male">Male</label>
+            @*Female*@
+            <input type="radio" id="Female" name="Gender" value="false"
+                   @if (Model.Gender == false) { @: checked
+                   } /> <label for="Female">Female</label>
+        </div>
+        <div>Email: <input asp-for="Email" /></div>
+        <div>
+            <input type="submit" value="Update" />
+            @* Phải viết thành link để xóa *@
+            <a asp-action="Delete2" asp-route-id="@Model.Id">Delete</a>
+        </div>
+    </form>
+    @* Quay lại trang Show *@
+    <a asp-action="Show">Back</a>
+</body>
+</html>

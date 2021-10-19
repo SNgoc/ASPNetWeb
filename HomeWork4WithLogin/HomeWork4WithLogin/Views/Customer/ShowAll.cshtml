@@ -1,0 +1,65 @@
+﻿@* dùng IEnumerable để hiển thị nhiều dữ liệu từng customer *@
+@model IEnumerable<HomeWork4WithLogin.Models.CustomerModel>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ShowAll</title>
+</head>
+<body>
+    <h1>Show all</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(m => m.Id)</th>
+                <th>@Html.DisplayNameFor(m => m.Name)</th>
+                <th>@Html.DisplayNameFor(m => m.Birthday)</th>
+                <th>@Html.DisplayNameFor(m => m.Gender)</th>
+                <th>@Html.DisplayNameFor(m => m.Email)</th>
+                <th>@Html.DisplayNameFor(m => m.UploadImage)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(mi => item.Id)</td>
+                    <td>@Html.DisplayFor(mi => item.Name)</td>
+                    @* birthday phải parse lại kiểu date, ko xài binding @Html.DisplayFor *@
+                    <td>@string.Format("{0:dd/MM/yyyy}", item.Birthday)</td>
+                    <td>
+                        @if (item.Gender == true)
+                        {
+                            @:Male
+                        }
+                        else
+                        {
+                            @:Female
+                        }
+                    </td>
+                    <td>@Html.DisplayFor(mi => item.Email)</td>
+
+                    @* Image *@
+                    <td>
+                        @if (item.Image != null)
+                        {
+                            <img src="~/images/@item.Image" alt="image" style="width:100px; height:100px;" />
+                        }
+                        else
+                        {
+                            @: No Image
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @* Quay lại trang Show *@
+    <a asp-action="Show">Back</a>
+</body>
+</html>

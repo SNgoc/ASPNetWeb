@@ -42,7 +42,7 @@ namespace HomeWork1_News.Controllers
         //show all list customer from db
         public async Task<IActionResult> Show() //show all news
         {
-            var news = await db.TbNews.ToListAsync();//show all to list
+            var news = await db.TbNews.ToListAsync();//show all to list, kiểu dùng trực tiếp model gốc ko qua model trung gian
             return View(news);
         }
 

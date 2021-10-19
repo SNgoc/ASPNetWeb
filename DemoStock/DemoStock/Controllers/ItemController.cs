@@ -14,7 +14,7 @@ namespace DemoStock.Controllers
     public class ItemController : Controller
     {
         StockDBContext db;
-        //upload
+        //upload Image
         IWebHostEnvironment env; //tự trỏ path đén thư mục wwwroot, lấy thông tin về biến môi trường server
         public ItemController(StockDBContext db, IWebHostEnvironment env)
         {

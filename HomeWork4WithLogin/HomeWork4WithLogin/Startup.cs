@@ -1,3 +1,4 @@
+﻿using HomeWork4WithLogin.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +24,8 @@ namespace HomeWork4WithLogin
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            //Đăng ký services để dùng with DI trong controller
+            services.AddTransient<CustomerDBContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
