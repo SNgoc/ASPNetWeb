@@ -1,0 +1,61 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+
+#nullable disable
+
+namespace BookManager.Models
+{
+    public partial class BookDBContext : DbContext
+    {
+        public BookDBContext()
+        {
+        }
+
+        public BookDBContext(DbContextOptions<BookDBContext> options)
+            : base(options)
+        {
+        }
+
+        public virtual DbSet<Book> Books { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=.;Database=BookDB;User=sa;Password=1");
+            }
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+
+            modelBuilder.Entity<Book>(entity =>
+            {
+                entity.HasKey(e => e.Isbn)
+                    .HasName("PK__Book__447D36EB69BDEA92");
+
+                entity.ToTable("Book");
+
+                entity.Property(e => e.Isbn)
+                    .HasMaxLength(20)
+                    .IsUnicode(false)
+                    .HasColumnName("ISBN");
+
+                entity.Property(e => e.Image)
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Title)
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+            });
+
+            OnModelCreatingPartial(modelBuilder);
+        }
+
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+    }
+}

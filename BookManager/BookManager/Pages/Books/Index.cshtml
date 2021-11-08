@@ -1,0 +1,63 @@
+﻿@page
+@model BookManager.Pages.Books.IndexModel
+@{
+    Layout = null; //để null để ko dùng layout mặc định
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Book</title>
+    @* bootstrap vào _layout.cshtml của shared copy *@
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ISBN</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @if (Model.Books.Count > 0)
+                {
+                    foreach (var item in Model.Books)
+                    {
+                    <tr>
+                        <td>@Html.DisplayFor(mi => item.Isbn)</td>
+                        <td>@Html.DisplayFor(mi => item.Title)</td>
+                        <td>@Html.DisplayFor(mi => item.Price)</td>
+                        <td>
+                            @if (item.Image != null && item.Image != "")
+                            {
+                                <img src="~/images/@item.Image" alt="image" style="width:100px; height:100px;" />
+                            }
+                            else
+                            {
+                                @: No Image
+                            }
+                        </td>
+                    </tr>
+                }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4">No Data.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    @* bootstrap *@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

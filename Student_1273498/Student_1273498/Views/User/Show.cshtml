@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Student_1273498.Models.TbUser>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Show</title>
+</head>
+<body>
+    <h1>User Profile</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(m => m.Fullname)</th>
+                <th>@Html.DisplayNameFor(m => m.Username)</th>
+                <th>@Html.DisplayNameFor(m => m.Password)</th>
+                <th>@Html.DisplayNameFor(m => m.Address)</th>
+                <th>@Html.DisplayNameFor(m => m.Email)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@Html.DisplayFor(mi => item.Fullname)</td>
+                <td>@Html.DisplayFor(mi => item.Username)</td>
+                <td>@Html.DisplayFor(mi => item.Password)</td>
+                <td>@Html.DisplayFor(mi => item.Address)</td>
+                <td>@Html.DisplayFor(mi => item.Email)</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

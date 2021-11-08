@@ -1,0 +1,49 @@
+﻿@model Student_1273498.Models.UserModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+    <h1>Create a new User</h1>
+    <form asp-action="Create">
+        @* thông báo lỗi chung *@
+        <h4 asp-validation-summary="ModelOnly" style="color:red;"></h4>
+        <div>
+            @*@Html.EditorFor(m => m.Username) giống asp-for, tự sinh ra thẻ input theo kiểu type dựa vào kiểu thuộc tính của property, vd: int sẽ type number*@
+            Fullname: <input asp-for="Fullname" />
+            <span asp-validation-for="Fullname" style="color:red;"></span>
+        </div>
+        <div>
+            Username: <input asp-for="Username" />
+            <span asp-validation-for="Username" style="color:red;"></span>
+        </div>
+        <div>
+            Password: <input asp-for="Password" />
+            <span asp-validation-for="Password" style="color:red;"></span>
+        </div>
+        <div>
+            Address: <input asp-for="Address" />
+            <span asp-validation-for="Address" style="color:red;"></span>
+        </div>
+        <div>
+            Email: <input asp-for="Email" />
+            <span asp-validation-for="Email" style="color:red;"></span>
+        </div>
+        <div>
+            IsAdmin: <input type="checkbox" value="true" id="IsAdmin" name="IsAdmin" /> <label for="IsAdmin">IsAdmin</label>
+            <span asp-validation-for="IsAdmin" style="color:red;"></span>
+        </div>
+        <br />
+        <div>
+            <input type="submit" style="margin-left:100px;" value="Create " />
+        </div>
+    </form>
+</body>
+</html>
