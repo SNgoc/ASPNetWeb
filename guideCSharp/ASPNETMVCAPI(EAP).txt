@@ -1,0 +1,97 @@
+Nuget package:
+Newtonsoft.Json
+YÊU CẦU:
+Vào Tool->nuget package manager và cài entitiesframework.sql và entitiesframework.tool (bản 5.0.12)
+
+CHÚ Ý: nếu dùng code first tạo db thì phải tự tạo thư mục Models và tạo 1 class để tạo giá trị cho db
+
+CHECK VALIDATE CHO EMAIL:
+[RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,7}", ErrorMessage = "Email is invalid format")]
+
+ĐĂNG KÝ CONNECTION TRONG startup.cs
+services.AddDbContext<CustomerDbContext>(opt => {
+                var conStr = Configuration.GetConnectionString("T12008M0CFConnectionString");
+                opt.UseSqlServer(conStr);
+            });
+//đăng ký DI
+            services.AddTransient<CustomerDbContext>();
+
+CODE FIRST: nên dùng cho wcf
+CHẠY CODE CONSOLE TẠO DB
+Add-Migration Initial
+Update-Database
+
+DB+table FIRST: nên dùng cho api
+RECOMMEND: NÊN TẠO DB+table TRƯỚC RỒI
+
+khai báo trước chuỗi nảy trong appsetting.json:
+{
+  "ConnectionStrings": {
+    "T12008M0Connection": "Server=.;Database=T12008M0;User=sa;Password=1"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "AllowedHosts": "*"
+}
+
+ CHẠY LỆNH SCAFFOLD
+Scaffold-DbContext "Server=.;Database=T12008M0;User=sa;Password=1" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+NẾU UPDATE LẠI MODELS ĐÃ CÓ THÌ CHẠY LỆNH NÀY:
+Scaffold-DbContext "Server=.;Database=T12008M0;User=sa;Password=1" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Force
+
+=>đăng ký DI trong startup.cs:
+//không dùng code này nếu dùng lệnh scaffold
+            //services.AddDbContext<EmployeeDBContext>(o =>
+            //{
+            //    var conStr = Configuration.GetConnectionString("EmployeeConnectionString");
+            //    o.UseSqlServer(conStr);
+            //});
+
+            services.AddTransient<EmployeeDBContext>();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+KHAI BÁO KHI DÙNG JSON WEB TOKEN JWT trong appsetting.json (cài 2 pack jwtbearer và identitymodel.token.jwt)
+"Jwt": {
+    "Key": "123456123456123456123456123456",
+    "Issuer": "aptech.vn",
+    "Audience": "readers",
+    "Subject": "Demo Jwt"
+  }
+
+=>đăng ký trong startup.cs:
+services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt => {
+                opt.RequireHttpsMetadata = false; 
+                opt.SaveToken = true;   //lưu lại mã token trong http Context
+                opt.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidAudience = Configuration["Jwt:Audience"],
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                };
+            });

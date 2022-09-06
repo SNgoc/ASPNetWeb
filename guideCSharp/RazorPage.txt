@@ -1,0 +1,21 @@
+http://localhost:61598/Hello sẽ gọi => route processing (1 page ứng với 1 route)
+
+1 route sẽ có nhiều page tương ứng
+=> gọi /Pages/Hello.cshtml
+=> gọi /Pages/Hello/Index.cshtml
+
+File: /Pages/Test/Demo.cshtml
+
+@page "/demo" => http://localhost:61598/demo
+@page "demo"  => http://localhost:61598/demo/demo
+
+@page "{name}" => http://localhost:61598/test/demo/Nero		:name=Nero
+nếu ? có 2 route
+@page "{name?}" => http://localhost:61598/test/demo/Nero
+	hoặc 	=> http://localhost:61598/test/demo
+
+//dùng route gốc
+@page
+=> sử dụng query string
+http://localhost:61598/test/demo?name=Nero
+var name = Request.Query["name"];

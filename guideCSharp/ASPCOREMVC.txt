@@ -1,0 +1,103 @@
+
+HƯỚNG DẪN TẠO FILE SOURCE VÀ FILE CONTROLLER, FILE VIEW BAN ĐẦU CHO WEB ASP.NET CORE MVC
+
+Chạy chuỗi tự sinh ra models database
+YÊU CẦU:
+Vào Tool->nuget package manager và cài entitiesframework.sql và entitiesframework.tool 
+( Proxies và Configuration.Json cho cách 2 nếu thiết lập qua file startup.cs thì cài)
+
+
+CHÚ Ý: nếu dùng pass mã hóa thì cài thêm BCrypt.Net-Next
+
+CÁCH 1: dùng để kết nối trực tiếp với db, ko cần dùng cách 2
+Scaffold-DbContext "Server=.;Database=T12008M0;User=sa;Password=1" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+chú ý: nếu cần chỉ định table tạo model thì thêm sau Models -t <tablename> -f
+-f là update model table khi có thay đổi cột data trong db
+
+//Đăng ký services để dùng with DI trong controller
+services.AddTransient<BankDBContext>();
+
+CÁCH 2:
+khai báo trước chuỗi nảy trong appsetting.json:
+{
+  "ConnectionStrings": {
+    "T12008M0Connection": "Server=.;Database=T12008M0;User=sa;Password=1"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "AllowedHosts": "*"
+}
+
+RỒI CHẠY:
+CODE FIRST:TẠO TABLE TRONG DB BẰNG CODE
+1. Add-Migration Initial
+2. Update-Database
+
+
+Scaffold-DbContext Name=ConnectionStrings:T12008M0Connection Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+
+SAU ĐÓ: vào Startup.cs
+
+ public void ConfigureServices(IServiceCollection services)
+        {
+           
+            //tạo thêm chuỗi kết nối này bên Startup.cs để fix lỗi connect
+            var conStr = Configuration.GetConnectionString("DemoLoginConnection");
+            services.AddDbContext<DemoLoginContext>(option =>option.UseSqlServer(conStr));
+            
+        }
+
+
+
+
+PHẦN LOGIN:
+Nếu login có dùng session thì phải đăng ký session trong file startup.cs
+
+public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddControllersWithViews();
+            //Register session to use
+            services.AddSession();
+            //add BankDBContext to use with DI
+            services.AddTransient<BankDBContext>();
+        }
+
+
+//khai báo sử dụng session
+            app.UseSession();
+
+TẠO FILE CONTROLLER:
+Sau khi cài pack nuget và chạy chuỗi scaffold, đăng ký services xong, 
+click chuột phải vào folder controller và chọn MVC controller empty => tạo 1 file controller đặt tên tùy ý 
+(lưu ý tên file controller sẽ là đường dẫn truy cập project trên thanh địa chỉ của web khi chạy)
+
+TẠO FILE MODEL ĐỂ TRÁNH LÀM HỎNG DỮ LIỆU GỐC:
+click phải vào folder Model => add->class, đặt tên theo file model table, vd Account.cs là file gốc, file model tạo nên
+là AccountModel.cs => rồi copy phần code trong account.cs vào file accountmodel.cs
+
+TẠO FILE VIEW:
+click chuột phải vào hàm tương ứng chỗ return View() => chọn razor view => bỏ tích use layout để tạo file view muốn hiển thị cho code hàm đó
+(gợi ý: nên đặt tên file view.cshtml theo tên hàm để dễ quản lý. VD:
+
+public IActionResult ABC()
+        {
+            return View();
+        }
+
+tên file view nên là ABC.cshtml
+
+CHỈNH TRANG HIỂN THỊ MẶC ĐỊNH ĐẦU TIÊN KHI CHẠY PROJECT:
+
+chỉnh trong file startup.cs
+
+app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Item}/{action=Login}/{id?}");//action là tên page muốn hiển thị
+            });
